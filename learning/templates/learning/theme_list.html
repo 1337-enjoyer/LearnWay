@@ -1,0 +1,31 @@
+{% extends 'learning/base.html' %}
+{% load static %}
+
+{% block title %}Все темы для изучения{% endblock %}
+
+{% block breadcrumb %}
+    <a href="/">Главная</a> / Все темы
+{% endblock %}
+
+{% block content %}
+    <h1 style="margin-bottom: 30px;">📚 Все темы</h1>
+
+    <div class="card-grid">
+        {% for theme in themes %}
+            <a href="{{ theme.get_absolute_url }}" class="card">
+                <span class="icon">{{ theme.icon|default:"📖" }}</span>
+                <h3>{{ theme.name }}</h3>
+                <p>{{ theme.description|truncatewords:15 }}</p>
+                <div style="text-align: center;">
+                    <span class="badge">{{ theme.subthemes.count }} подтем</span>
+                </div>
+            </a>
+        {% empty %}
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px 0; color: #a0aec0;">
+                <p style="font-size: 48px; margin-bottom: 16px;">😅</p>
+                <p style="font-size: 18px;">Пока нет ни одной темы</p>
+                <p style="font-size: 14px; margin-top: 8px;">Добавь их через админку</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

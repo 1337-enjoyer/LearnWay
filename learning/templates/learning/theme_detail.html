@@ -1,0 +1,60 @@
+{% extends 'learning/base.html' %}
+{% load static %}
+
+{% block title %}{{ theme.name }}{% endblock %}
+
+{% block breadcrumb %}
+    <a href="/">Главная</a>
+    <span class="sep">/</span>
+    <a href="{{ theme.get_absolute_url }}">{{ theme.name }}</a>
+{% endblock %}
+
+{% block content %}
+    <div class="two-column">
+        <!-- Сайдбар -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Подтемы</div>
+            <nav class="sidebar-nav">
+                {% for subtheme in theme.subthemes.all %}
+                    <a href="{{ subtheme.get_absolute_url }}" 
+                       class="{% if subtheme.slug == current_subtheme.slug %}active{% endif %}">
+                        {{ subtheme.name }}
+                    </a>
+                {% endfor %}
+            </nav>
+
+            <hr class="sidebar-divider">
+
+            <a href="{% url 'learning:full_theme_test' theme.slug %}" 
+               class="btn btn-success btn-block">
+                🧪 Пройти все тесты
+            </a>
+        </aside>
+
+        <!-- Основной контент -->
+        <main>
+            <h1>{{ theme.icon|default:"📖" }} {{ theme.name }}</h1>
+            <p style="color: #718096; margin-bottom: 24px;">{{ theme.description }}</p>
+
+            {% if current_subtheme %}
+                <h2 style="margin: 24px 0 12px;">{{ current_subtheme.name }}</h2>
+                <p style="color: #718096; margin-bottom: 20px;">{{ current_subtheme.description }}</p>
+
+                <div class="article-content">
+                    {{ current_subtheme.content|markdown|safe }}
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                    <a href="{% url 'learning:subtheme_test' theme.slug current_subtheme.slug %}" 
+                       class="btn btn-primary">
+                        📝 Пройти тест по этой подтеме
+                    </a>
+                </div>
+            {% else %}
+                <p style="color: #a0aec0; padding: 40px 0; text-align: center;">
+                    Выберите подтему из списка слева
+                </p>
+            {% endif %}
+        </main>
+    </div>
+{% endblock %}
