@@ -26,7 +26,7 @@
                     из подтемы: {{ question.subtheme.name }}
                 </p>
                 <div>
-                    {% for answer in question.answers.all %}
+                    {% for answer in question.shuffled_answers %}
                         <label class="answer-option">
                             <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}">
                             <span>{{ answer.text }}</span>
