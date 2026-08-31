@@ -1,7 +1,7 @@
 from django import template
 from django.template.defaultfilters import stringfilter
 import markdown
-# from markdown.extensions import fenced_code
+from markdown.extensions import fenced_code, codehilite, tables, toc
 
 register = template.Library()
 
@@ -9,5 +9,27 @@ register = template.Library()
 @register.filter(name='markdown')
 @stringfilter
 def markdown_filter(value):
-    # extensions=['fenced_code'] нужен, чтобы Markdown понимал блоки кода с ``` [citation:2][citation:8]
-    return markdown.markdown(value, extensions=['fenced_code', 'codehilite'])
+    """
+    Преобразует Markdown в HTML с поддержкой:
+    - подсветки кода (fenced_code)
+    - таблиц (tables)
+    - оглавления (toc)
+    """
+    if not value:
+        return ''
+
+    return markdown.markdown(
+        value,
+        extensions=[
+            'fenced_code',      # Блоки кода с ```python
+            'codehilite',       # Подсветка синтаксиса
+            'tables',           # Таблицы
+            'toc',              # Оглавление (опционально)
+            'nl2br',            # Переносы строк
+        ],
+        extension_configs={
+            'codehilite': {
+                'css_class': 'codehilite',
+            }
+        }
+    )

@@ -1,0 +1,55 @@
+{% extends 'learning/base.html' %}
+{% load static %}
+
+{% block title %}
+  Результат полного теста
+{% endblock %}
+
+{% block breadcrumb %}
+  <a href="/">Главная</a>
+  <span class="sep">/</span>
+  <a href="{{ theme.get_absolute_url }}">{{ theme.name }}</a>
+  <span class="sep">/</span>
+  Результат
+{% endblock %}
+
+{% block content %}
+  <div class="test-result">
+    <h1 style="margin-bottom: 16px;">🧪 Результат полного теста по теме</h1>
+    <h2 style="color: #4a5568; margin-bottom: 24px;">{{ theme.name }}</h2>
+
+    <div class="score">
+      <span class="
+                {% if score_percent == 100 %}
+          score-perfect
+
+        {% elif score_percent >= 70 %}
+          score-good
+
+        {% else %}
+          score-bad
+        {% endif %}
+            ">
+        {{ score_percent }}%
+      </span>
+    </div>
+    <div class="score-label">{{ correct_answers }} из {{ total_questions }} правильных ответов</div>
+
+    {% if score_percent == 100 %}
+      <div style="margin-top: 16px; font-size: 48px;">🏆</div>
+      <p style="color: #48bb78; font-weight: 500;">Идеально! Ты мастер {{ theme.name }}!</p>
+    {% elif score_percent >= 70 %}
+      <div style="margin-top: 16px; font-size: 48px;">💪</div>
+      <p style="color: #4299e1; font-weight: 500;">Неплохо! Повтори слабые места и попробуй ещё.</p>
+    {% else %}
+      <div style="margin-top: 16px; font-size: 48px;">📖</div>
+      <p style="color: #fc8181; font-weight: 500;">Рекомендуем изучить все подтемы по порядку.</p>
+    {% endif %}
+
+    <div style="margin-top: 30px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+      <a href="{% url 'learning:theme_detail' theme.slug %}" class="btn btn-primary">📚 К теме</a>
+      <a href="{% url 'learning:full_theme_test' theme.slug %}" class="btn btn-outline">🔄 Пройти заново</a>
+      <a href="/" class="btn btn-outline">🏠 На главную</a>
+    </div>
+  </div>
+{% endblock %}
