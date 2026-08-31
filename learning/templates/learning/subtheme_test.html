@@ -1,0 +1,44 @@
+{% extends 'learning/base.html' %}
+{% load static %}
+
+{% block title %}Тест: {{ subtheme.name }}{% endblock %}
+
+{% block breadcrumb %}
+    <a href="/">Главная</a>
+    <span class="sep">/</span>
+    <a href="{{ subtheme.theme.get_absolute_url }}">{{ subtheme.theme.name }}</a>
+    <span class="sep">/</span>
+    <a href="{{ subtheme.get_absolute_url }}">{{ subtheme.name }}</a>
+    <span class="sep">/</span>
+    Тест
+{% endblock %}
+
+{% block content %}
+    <h1>📝 Тест: {{ subtheme.name }}</h1>
+    <p style="color: #718096; margin-bottom: 30px;">
+        Вопросов: {{ questions.count }}
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        {% for question in questions %}
+            <div class="question-block">
+                <p class="question-text">{{ forloop.counter }}. {{ question.text }}</p>
+                <div>
+                    {% for answer in question.answers.all %}
+                        <label class="answer-option">
+                            <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}">
+                            <span>{{ answer.text }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button type="submit" class="btn btn-success" style="padding: 14px 48px; font-size: 17px;">
+                ✅ Проверить ответы
+            </button>
+        </div>
+    </form>
+{% endblock %}

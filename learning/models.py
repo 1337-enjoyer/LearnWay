@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -45,10 +47,7 @@ class SubTheme(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
     slug = models.SlugField(max_length=120, blank=True, verbose_name='URL')
     description = models.TextField(blank=True, verbose_name='Краткое описание')
-
-    # Основной контент (статья с кодом)
     content = models.TextField(verbose_name='Статья (Markdown)')
-
     order = models.PositiveBigIntegerField(default=0, verbose_name='Порядок')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -78,7 +77,7 @@ class Question(models.Model):
     subtheme = models.ForeignKey(
         SubTheme,
         on_delete=models.CASCADE,
-        related_name='question',
+        related_name='questions',
         verbose_name='Подтема'
     )
     text = models.TextField(verbose_name='Текст вопроса')
@@ -98,6 +97,11 @@ class Question(models.Model):
 
     def __str__(self):
         return f'{self.subtheme.name} → Вопрос #{self.id}'
+
+    def get_shuffled_answers(self):
+        answers = list(self.answers.all())
+        random.shuffle(answers)
+        return answers
 
 
 class Answer(models.Model):

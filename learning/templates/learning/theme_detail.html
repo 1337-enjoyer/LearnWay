@@ -1,0 +1,61 @@
+{% extends 'learning/base.html' %}
+{% load static %}
+{% load markdown_filters %}
+
+{% block title %}{{ theme.name }}{% endblock %}
+
+{% block breadcrumb %}
+    <a href="/">Главная</a>
+    <span class="sep">/</span>
+    <a href="{{ theme.get_absolute_url }}">{{ theme.name }}</a>
+{% endblock %}
+
+{% block content %}
+    <div class="theme-page">
+        <!-- Сайдбар с подтемами -->
+        <div class="theme-sidebar">
+            <div class="sidebar-title">📂 Подтемы</div>
+            <div class="sidebar-nav">
+                {% for subtheme in theme.subthemes.all %}
+                    <a href="{{ subtheme.get_absolute_url }}" 
+                       class="{% if subtheme.slug == current_subtheme.slug %}active{% endif %}">
+                        {{ subtheme.name }}
+                    </a>
+                {% empty %}
+                    <p style="color: #8b949e; font-size: 14px;">Нет подтем</p>
+                {% endfor %}
+            </div>
+            
+            <hr class="sidebar-divider">
+            
+            <a href="{% url 'learning:full_theme_test' theme.slug %}" 
+               class="btn btn-success btn-block">
+                🧪 Пройти все тесты
+            </a>
+        </div>
+
+        <!-- Контент -->
+        <div class="theme-content">
+            <h1>{{ theme.icon|default:"📖" }} {{ theme.name }}</h1>
+            <p class="theme-description">{{ theme.description }}</p>
+            
+            {% if current_subtheme %}
+                <h2>{{ current_subtheme.name }}</h2>
+                <p class="subtheme-description">{{ current_subtheme.description }}</p>
+                
+                <div class="article-content">
+                    {{ current_subtheme.content|markdown|safe }}
+                </div>
+                
+                <div class="test-button-wrapper">
+                    <a href="{% url 'learning:subtheme_test' theme.slug current_subtheme.slug %}" 
+                       class="btn btn-primary">
+                        📝 Пройти тест по этой подтеме
+                    </a>
+                </div>
+            {% else %}
+                <p class="empty-message">Выберите подтему из списка слева</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

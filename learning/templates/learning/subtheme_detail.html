@@ -1,0 +1,38 @@
+{% extends 'learning/base.html' %}
+{% load static %}
+{% load markdown_filters %}
+
+{% block title %}{{ subtheme.name }} — {{ subtheme.theme.name }}{% endblock %}
+
+{% block breadcrumb %}
+    <a href="/">Главная</a>
+    <span class="sep">/</span>
+    <a href="{{ subtheme.theme.get_absolute_url }}">{{ subtheme.theme.name }}</a>
+    <span class="sep">/</span>
+    {{ subtheme.name }}
+{% endblock %}
+
+{% block content %}
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div style="margin-bottom: 16px;">
+            <a href="{{ subtheme.theme.get_absolute_url }}" 
+               style="color: #4299e1; text-decoration: none; font-size: 14px;">
+                ← Назад к {{ subtheme.theme.name }}
+            </a>
+        </div>
+
+        <h1>{{ subtheme.theme.icon|default:"📖" }} {{ subtheme.name }}</h1>
+        <p style="color: #718096; margin-bottom: 30px;">{{ subtheme.description }}</p>
+
+        <div class="article-content">
+            {{ subtheme.content|markdown|safe }}
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e2e8f0; text-align: center;">
+            <a href="{% url 'learning:subtheme_test' subtheme.theme.slug subtheme.slug %}" 
+               class="btn btn-primary" style="padding: 14px 48px; font-size: 17px;">
+                📝 Пройти тест по этой подтеме
+            </a>
+        </div>
+    </div>
+{% endblock %}
