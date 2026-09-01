@@ -1,0 +1,886 @@
+[
+  {
+    "model": "learning.theme",
+    "pk": 1,
+    "fields": {
+      "name": "Git",
+      "slug": "git",
+      "description": "Система контроля версий git",
+      "icon": "[git_pic]",
+      "order": 1,
+      "created_at": "2026-08-31T16:22:15.961Z",
+      "updated_at": "2026-09-01T15:55:33.017Z"
+    }
+  },
+  {
+    "model": "learning.theme",
+    "pk": 2,
+    "fields": {
+      "name": "Python",
+      "slug": "python",
+      "description": "Язык программирования Python",
+      "icon": "[python_pic]",
+      "order": 1,
+      "created_at": "2026-09-01T09:01:39.172Z",
+      "updated_at": "2026-09-01T15:55:43.033Z"
+    }
+  },
+  {
+    "model": "learning.subtheme",
+    "pk": 3,
+    "fields": {
+      "theme": 2,
+      "name": "Коллекции",
+      "slug": "kollekcii",
+      "description": "Коллекции в Python",
+      "content": "В Python есть четыре основные встроенные коллекции, которые используются для хранения групп данных:\r\n\r\n1. **list** (список) — изменяемый, упорядоченный\r\n2. **tuple** (кортеж) — неизменяемый, упорядоченный\r\n3. **dict** (словарь) — изменяемый, неупорядоченный (ключ-значение)\r\n4. **set** (множество) — изменяемый, неупорядоченный, уникальные элементы\r\n\r\n\r\n## List (Список)\r\n\r\nСписок — это упорядоченная изменяемая коллекция. Может содержать элементы разных типов.\r\n\r\n##### Создание:\r\n```python\r\nmy_list = [1, 2, 3, 4, 5]\r\nempty_list = []\r\nmixed = [1, \"hello\", 3.14, True]\r\n```\r\n\r\n\r\n##### Основные операции:\r\n```python\r\nmy_list = [1, 2, 3]\r\n\r\n# Добавление\r\nmy_list.append(4)        # [1, 2, 3, 4]\r\nmy_list.insert(1, 99)    # [1, 99, 2, 3, 4]\r\nmy_list.extend([5, 6])   # [1, 99, 2, 3, 4, 5, 6]\r\n\r\n# Удаление\r\nmy_list.pop()            # удаляет последний\r\nmy_list.pop(1)           # удаляет элемент по индексу\r\nmy_list.remove(99)       # удаляет по значению\r\ndel my_list[0]           # удаляет по индексу\r\n\r\n# Доступ к элементам\r\nfirst = my_list[0]       # первый элемент\r\nlast = my_list[-1]       # последний элемент\r\nsublist = my_list[1:3]   # срез (индексы 1 и 2)\r\n\r\n# Другие методы\r\nmy_list.index(5)         # индекс элемента\r\nmy_list.count(2)         # количество вхождений\r\nmy_list.reverse()        # разворот\r\nmy_list.sort()           # сортировка\r\n```\r\n##### Свойства:\r\n- Изменяемый (можно добавлять, удалять, изменять элементы)\r\n- Упорядоченный (элементы имеют порядок и индексы)\r\n- Может содержать дубликаты\r\n\r\n##### Когда использовать:\r\n- Когда нужна изменяемая последовательность\r\n- Когда важен порядок элементов\r\n- Когда нужно часто добавлять/удалять элементы в конце\r\n\r\n\r\n## Tuple (Кортеж)\r\n\r\nКортеж — это упорядоченная неизменяемая коллекция.\r\n\r\n##### Создание:\r\n```python\r\nmy_tuple = (1, 2, 3, 4, 5)\r\nsingle = (1,)            # кортеж из одного элемента (запятая обязательна)\r\nempty = ()               # пустой кортеж\r\n```\r\n##### Основные операции:\r\n```python\r\nmy_tuple = (1, 2, 3, 4, 5)\r\n\r\n# Доступ к элементам\r\nfirst = my_tuple[0]      # 1\r\nlast = my_tuple[-1]      # 5\r\n\r\n# Срезы\r\nsub = my_tuple[1:3]      # (2, 3)\r\n\r\n# Распаковка\r\na, b, c = (1, 2, 3)      # a=1, b=2, c=3\r\n\r\n# Поиск\r\nmy_tuple.index(3)        # индекс элемента 3\r\nmy_tuple.count(2)        # количество вхождений\r\n\r\n# Методы отсутствуют, потому что кортеж неизменяемый\r\n```\r\n\r\n##### Свойства:\r\n- Неизменяемый (нельзя добавлять, удалять или изменять элементы)\r\n- Упорядоченный (есть индексы)\r\n- Может содержать дубликаты\r\n- Занимает меньше памяти, чем список\r\n\r\n##### Когда использовать:\r\n- Когда данные не должны меняться (например, координаты, настройки)\r\n- Когда нужна производительность (кортежи быстрее списков)\r\n- Как ключи в словаре (списки не могут быть ключами)\r\n- Для распаковки значений\r\n\r\n\r\n\r\n## Dict (Словарь)\r\n\r\nСловарь — это изменяемая неупорядоченная коллекция, хранящая пары ключ-значение.\r\n\r\n##### Создание:\r\n```python\r\nmy_dict = {'name': 'Alice', 'age': 25, 'city': 'Moscow'}\r\nempty = {}\r\nusing_dict = dict(name='Alice', age=25)\r\n```\r\n##### Основные операции:\r\n```python\r\nmy_dict = {'name': 'Alice', 'age': 25}\r\n\r\n# Доступ к значениям\r\nname = my_dict['name']           # 'Alice'\r\nage = my_dict.get('age')         # 25\r\ncity = my_dict.get('city', 'NY') # 'NY' (значение по умолчанию)\r\n\r\n# Добавление и обновление\r\nmy_dict['email'] = 'alice@mail.ru'   # добавляет новый ключ\r\nmy_dict['age'] = 26                  # обновляет существующий\r\n\r\n# Удаление\r\ndel my_dict['city']              # удаляет ключ\r\nmy_dict.pop('email')             # удаляет и возвращает значение\r\nmy_dict.popitem()                # удаляет последнюю пару\r\n\r\n# Итерация\r\nfor key in my_dict:              # по ключам\r\n    print(key, my_dict[key])\r\n\r\nfor key, value in my_dict.items():  # по парам\r\n    print(key, value)\r\n\r\n# Методы\r\nmy_dict.keys()      # все ключи\r\nmy_dict.values()    # все значения\r\nmy_dict.items()     # все пары\r\n```\r\n\r\n##### Свойства:\r\n- Изменяемый (можно добавлять, удалять, изменять)\r\n- Неупорядоченный (до Python 3.7 порядок не гарантировался, в 3.7+ сохраняется порядок вставки)\r\n- Уникальные ключи (при добавлении существующего ключа — перезаписывается)\r\n- Ключи должны быть неизменяемыми (строки, числа, кортежи)\r\n\r\n##### Когда использовать:\r\n- Когда нужно быстро искать данные по ключу\r\n- Когда данные имеют структуру \"ключ-значение\"\r\n- Для хранения настроек, конфигураций\r\n- Для кэширования\r\n\r\n\r\n## Set (Множество)\r\n\r\nМножество — это изменяемая неупорядоченная коллекция уникальных элементов.\r\n\r\n##### Создание:\r\n```python\r\nmy_set = {1, 2, 3, 4, 5}\r\nempty = set()            # нельзя использовать {}, это пустой словарь\r\nfrom_list = set([1, 2, 3, 3, 4])  # {1, 2, 3, 4}\r\n```\r\n\r\n##### Основные операции:\r\n```python\r\nmy_set = {1, 2, 3, 4, 5}\r\n\r\n# Добавление и удаление\r\nmy_set.add(6)            # добавляет элемент\r\nmy_set.remove(3)         # удаляет элемент (ошибка если нет)\r\nmy_set.discard(10)       # удаляет если есть, не вызывает ошибку\r\nmy_set.pop()             # удаляет случайный элемент\r\n\r\n# Операции над множествами\r\na = {1, 2, 3, 4}\r\nb = {3, 4, 5, 6}\r\n\r\nunion = a | b            # объединение: {1, 2, 3, 4, 5, 6}\r\nintersection = a & b     # пересечение: {3, 4}\r\ndifference = a - b       # разность: {1, 2}\r\nsymmetric = a ^ b        # симметричная разность: {1, 2, 5, 6}\r\n\r\n# Проверки\r\na.issubset(b)            # является ли a подмножеством b\r\na.issuperset(b)          # является ли a надмножеством b\r\n3 in a                   # проверка наличия элемента\r\n```\r\n\r\n##### Свойства:\r\n- Изменяемый (можно добавлять и удалять элементы)\r\n- Неупорядоченный (элементы не имеют индексов)\r\n- Уникальные элементы (дубликаты автоматически удаляются)\r\n- Элементы должны быть неизменяемыми\r\n\r\n##### Когда использовать:\r\n- Когда нужна уникальность элементов\r\n- Для удаления дубликатов из списка\r\n- Для быстрых проверок наличия элемента\r\n- Для математических операций (объединение, пересечение)\r\n\r\n---\r\n\r\n## Сравнение коллекций\r\n\r\n\r\n| Характеристика      | list   | tuple  | dict   | set    |\r\n|---------------------|--------|--------|--------|--------|\r\n| Изменяемость        | Да     | Нет    | Да     | Да     |\r\n| Упорядоченность     | Да     | Да     | Да*    | Нет    |\r\n| Уникальность        | Нет    | Нет    | Да**   | Да     |\r\n| Индексация          | Да     | Да     | Нет    | Нет    |\r\n| Скорость поиска     | Медл.  | Медл.  | Быстр. | Быстр. |\r\n| Занимаемая память   | Сред.  | Мало   | Больш. | Сред.  |\r\n\r\n\r\n\\* dict сохраняет порядок вставки с Python 3.7\r\n** уникальность только для ключей\r\n\r\n## Преобразование между коллекциями\r\n\r\n```python\r\nmy_list = [1, 2, 3, 3, 4]\r\nmy_tuple = (1, 2, 3, 4)\r\nmy_dict = {'a': 1, 'b': 2}\r\nmy_set = {1, 2, 3, 4}\r\n\r\n# В список\r\nlist_from_tuple = list(my_tuple)   # [1, 2, 3, 4]\r\nlist_from_dict = list(my_dict)     # ['a', 'b'] (ключи)\r\nlist_from_set = list(my_set)       # [1, 2, 3, 4]\r\n\r\n# В кортеж\r\ntuple_from_list = tuple(my_list)   # (1, 2, 3, 3, 4)\r\ntuple_from_dict = tuple(my_dict)   # ('a', 'b')\r\ntuple_from_set = tuple(my_set)     # (1, 2, 3, 4)\r\n\r\n# В множество (удаляет дубликаты)\r\nset_from_list = set(my_list)       # {1, 2, 3, 4}\r\nset_from_tuple = set(my_tuple)     # {1, 2, 3, 4}\r\n\r\n# В словарь (из списка пар)\r\nlist_of_pairs = [('a', 1), ('b', 2)]\r\ndict_from_list = dict(list_of_pairs)  # {'a': 1, 'b': 2}\r\n```\r\n\r\n## Итог\r\n\r\nВыбор коллекции зависит от задачи:\r\n- list — изменяемая последовательность с порядком\r\n- tuple — неизменяемая последовательность (безопасность, производительность)\r\n- dict — быстрый доступ по ключу (ключ-значение)\r\n- set — уникальные элементы (без дубликатов, быстрая проверка)\r\n\r\nЧасто используемые комбинации:\r\n- Список из словарей — для табличных данных\r\n- Словарь со списками — для группировки\r\n- Множество для удаления дубликатов из списка\r\n- Кортеж для неизменяемых данных",
+      "order": 0,
+      "created_at": "2026-09-01T15:26:25.078Z",
+      "updated_at": "2026-09-01T15:37:49.464Z"
+    }
+  },
+  {
+    "model": "learning.subtheme",
+    "pk": 1,
+    "fields": {
+      "theme": 1,
+      "name": "Основы git",
+      "slug": "osnovy-git",
+      "description": "",
+      "content": "# Что такое Git?\r\n\r\nGit — это распределённая система контроля версий. Она позволяет отслеживать изменения в файлах и координировать работу нескольких разработчиков.\r\n\r\n## Основные команды\r\n\r\n### Инициализация репозитория\r\n\r\n    git init\r\n\r\nСоздаёт новый Git-репозиторий в текущей папке.\r\n\r\n## Клонирование удалённого репозитория\r\n\r\n    git clone https://github.com/user/repo.git\r\n\r\nКопирует удалённый репозиторий на локальную машину.\r\n\r\n## Добавление файлов в индекс\r\n\r\n    git add .\r\n    git add filename.txt\r\n\r\nДобавляет файлы в промежуточную область (staging area) перед коммитом.\r\n\r\n## Коммит изменений\r\n\r\n    git commit -m \"Сообщение о коммите\"\r\n\r\nСохраняет изменения в репозитории с описанием.\r\n\r\n## Просмотр статуса\r\n\r\n    git status\r\n\r\nПоказывает состояние файлов: изменённые, добавленные в индекс, неотслеживаемые.\r\n\r\n## Просмотр истории\r\n\r\n    git log --oneline\r\n\r\nПоказывает краткую историю коммитов (каждый в одну строку).\r\n\r\n## Жизненный цикл файлов в Git\r\n\r\n1. **Untracked** — файл не отслеживается Git (только что создан)\r\n2. **Staged** — файл добавлен в индекс (git add)\r\n3. **Committed** — файл сохранён в репозитории (git commit)\r\n\r\n## Ветвление\r\n\r\nGit позволяет создавать ветки для изолированной разработки:\r\n\r\nСоздать ветку:\r\n\r\n    git branch feature/new-feature\r\n\r\nПереключиться на ветку:\r\n\r\n    git checkout feature/new-feature\r\n\r\nСоздать и переключиться (сокращённо):\r\n\r\n    git checkout -b feature/new-feature\r\n\r\nСлить ветку в текущую:\r\n\r\n    git merge feature/new-feature\r\n\r\n## Удалённые репозитории\r\n\r\nДобавить удалённый репозиторий:\r\n\r\n    git remote add origin https://github.com/user/repo.git\r\n\r\nОтправить изменения:\r\n\r\n    git push -u origin main\r\n\r\nЗабрать изменения:\r\n\r\n    git pull\r\n\r\n## Заключение\r\n\r\nGit — это основа работы в современной разработке. Освоив эти команды, ты сможешь работать в любой команде.",
+      "order": 0,
+      "created_at": "2026-08-31T16:22:15.964Z",
+      "updated_at": "2026-08-31T16:22:15.964Z"
+    }
+  },
+  {
+    "model": "learning.subtheme",
+    "pk": 2,
+    "fields": {
+      "theme": 2,
+      "name": "Работа с файлами",
+      "slug": "rabota-s-fajlami",
+      "description": "",
+      "content": "Для открытия файла используется функция `open()`, возвращающая объект файла, который используется для операций с ним (чтение, запись). \r\n\r\n[Документация](https://docs.python.org/3.9/library/functions.html#open)\r\n\r\n```python \r\nfile = open(<path>, <mode>)\r\n```\r\n\r\n- path — путь к файлу. Первый, обязательный аргумент.\r\n- mode — режим работы с файлом.\r\n\r\n\r\n| Mode| Значение |\r\n|-------------|-------------|\r\n| 'r'    | Открытие для чтения (default).|\r\n| 'w' | Открытие для записи (Содержимое файла стирается перед записью).   |\r\n| 'x'    | Файл будет создан. Если файл уже есть, сработает ошибка FileExistsError.    |\r\n| 'a'   | Открытие для дозаписи (содержимое не удаляется).    |\r\n| 'b'    | Бинарный режим.    |\r\n| 't'    | Текстовый режим.   |\r\n| '+'    | Для обновления (чтения и записи (a+, w+)). |\r\n\r\nПосле завершения работы с файлом, его нужно закрыть с помощью метода `close()`.\r\n\r\nЕсли не закрыть файл, то он продолжит потреблять системные ресурсы, есть возможность потерять данные, сохраненные в нём.\r\n\r\n```python\r\nfile = open('example.txt', 'w')\r\nfile.close() \r\n```\r\n\r\n### Запись в файл\r\n\r\n```python\r\nfile = open('example.txt', 'w')\r\nfile.write('первая строка\\nвторая строка')\r\nfile.close() \r\n```\r\n\r\n### Чтение файла\r\n\r\n```python\r\nfile = open('example.txt', 'r', encoding='utf-8')\r\n# Чтение первых 10 символов\r\ntext = file.read(10)\r\nprint(text)\r\nfile.close() \r\n```\r\n\r\nПострочное чтение файла осуществляется с помощью методов `readline()` и `readlines()`.\r\n\r\n`readline()` читает и возвращает одну строку файла, при следующем вызове возвращает следующую строку.\r\n\r\n`readlines()` возвращает все строки списком (одна строка в одном элементе).\r\n\r\n### С помощью контекстного менеджера\r\n\r\n```python\r\nwith open('to_do_list.txt', 'w') as f:\r\n    f.write('Помыть полы') \r\n```",
+      "order": 1,
+      "created_at": "2026-09-01T09:01:39.174Z",
+      "updated_at": "2026-09-01T15:11:44.489Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 1,
+    "fields": {
+      "subtheme": 1,
+      "text": "Какая команда инициализирует новый Git-репозиторий?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-08-31T16:22:15.966Z",
+      "updated_at": "2026-08-31T16:22:15.966Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 2,
+    "fields": {
+      "subtheme": 1,
+      "text": "Как добавить все изменённые файлы в индекс (staging area)?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-08-31T16:22:15.966Z",
+      "updated_at": "2026-08-31T16:22:15.966Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 3,
+    "fields": {
+      "subtheme": 1,
+      "text": "Что показывает команда git log --oneline?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-08-31T16:22:15.967Z",
+      "updated_at": "2026-08-31T16:22:15.967Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 4,
+    "fields": {
+      "subtheme": 1,
+      "text": "Как создать новую ветку и сразу переключиться на неё?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-08-31T16:22:15.967Z",
+      "updated_at": "2026-08-31T16:22:15.967Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 5,
+    "fields": {
+      "subtheme": 1,
+      "text": "Какой статус НЕ является статусом файла в Git?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-08-31T16:22:15.968Z",
+      "updated_at": "2026-08-31T16:22:15.968Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 6,
+    "fields": {
+      "subtheme": 2,
+      "text": "Что произойдет, если открыть не пустой текстовый файл с параметром 'w', и что-нибудь туда дописать?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:10:44.724Z",
+      "updated_at": "2026-09-01T15:10:44.724Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 7,
+    "fields": {
+      "subtheme": 2,
+      "text": "Какой параметр открывает файл только для чтения?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:10:44.725Z",
+      "updated_at": "2026-09-01T15:10:44.725Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 8,
+    "fields": {
+      "subtheme": 2,
+      "text": "С помощью какого метода можно получить строки файла списком (одна строка в одном элементе)?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:10:44.726Z",
+      "updated_at": "2026-09-01T15:10:44.726Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 9,
+    "fields": {
+      "subtheme": 2,
+      "text": "Нужно ли закрывать файл с помощью метода close() при использовании контекстного менеджера?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:10:44.727Z",
+      "updated_at": "2026-09-01T15:10:44.727Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 10,
+    "fields": {
+      "subtheme": 3,
+      "text": "Какая коллекция является изменяемой, упорядоченной и может содержать дубликаты?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:37:49.466Z",
+      "updated_at": "2026-09-01T15:37:49.466Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 11,
+    "fields": {
+      "subtheme": 3,
+      "text": "Какая коллекция является неизменяемой и упорядоченной?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:37:49.467Z",
+      "updated_at": "2026-09-01T15:37:49.467Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 12,
+    "fields": {
+      "subtheme": 3,
+      "text": "Какая коллекция хранит только уникальные элементы и не имеет порядка?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:37:49.467Z",
+      "updated_at": "2026-09-01T15:37:49.467Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 13,
+    "fields": {
+      "subtheme": 3,
+      "text": "Какой тип данных используется для хранения пар \"ключ-значение\"?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:37:49.468Z",
+      "updated_at": "2026-09-01T15:37:49.468Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 14,
+    "fields": {
+      "subtheme": 3,
+      "text": "Что произойдёт при добавлении существующего ключа в словарь?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:37:49.468Z",
+      "updated_at": "2026-09-01T15:37:49.468Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 15,
+    "fields": {
+      "subtheme": 3,
+      "text": "Какая коллекция занимает меньше всего памяти?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:37:49.469Z",
+      "updated_at": "2026-09-01T15:37:49.469Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 16,
+    "fields": {
+      "subtheme": 3,
+      "text": "Как быстро(!) удалить дубликаты из списка [1, 2, 2, 3, 3, 4]",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:37:49.469Z",
+      "updated_at": "2026-09-01T15:37:49.469Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 17,
+    "fields": {
+      "subtheme": 3,
+      "text": "Какая коллекция не может быть ключом в словаре?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-09-01T15:37:49.470Z",
+      "updated_at": "2026-09-01T15:37:49.470Z"
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 1,
+    "fields": {
+      "question": 1,
+      "text": "git init",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 2,
+    "fields": {
+      "question": 1,
+      "text": "git start",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 3,
+    "fields": {
+      "question": 1,
+      "text": "git new",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 4,
+    "fields": {
+      "question": 1,
+      "text": "git create",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 5,
+    "fields": {
+      "question": 2,
+      "text": "git commit -a",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 6,
+    "fields": {
+      "question": 2,
+      "text": "git add .",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 7,
+    "fields": {
+      "question": 2,
+      "text": "git stage",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 8,
+    "fields": {
+      "question": 2,
+      "text": "git push",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 9,
+    "fields": {
+      "question": 3,
+      "text": "Список всех веток",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 10,
+    "fields": {
+      "question": 3,
+      "text": "Краткую историю коммитов (каждый в одну строку)",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 11,
+    "fields": {
+      "question": 3,
+      "text": "Удаляет последний коммит",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 12,
+    "fields": {
+      "question": 3,
+      "text": "Отменяет все изменения",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 13,
+    "fields": {
+      "question": 4,
+      "text": "git branch new-branch",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 14,
+    "fields": {
+      "question": 4,
+      "text": "git checkout new-branch",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 15,
+    "fields": {
+      "question": 4,
+      "text": "git checkout -b new-branch",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 16,
+    "fields": {
+      "question": 4,
+      "text": "git switch new-branch",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 17,
+    "fields": {
+      "question": 5,
+      "text": "Untracked",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 18,
+    "fields": {
+      "question": 5,
+      "text": "Staged",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 19,
+    "fields": {
+      "question": 5,
+      "text": "Committed",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 20,
+    "fields": {
+      "question": 5,
+      "text": "Pending",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 21,
+    "fields": {
+      "question": 6,
+      "text": "Произойдет исключение FileExistsError, данные не будут записаны.",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 22,
+    "fields": {
+      "question": 6,
+      "text": "Содержимое файла удалится, новый текст будет добавлен.",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 23,
+    "fields": {
+      "question": 6,
+      "text": "Текст будет добавлен после уже существующего в файле.",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 24,
+    "fields": {
+      "question": 6,
+      "text": "Дописать не  выйдет, так как параметр 'w' для чтения.",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 25,
+    "fields": {
+      "question": 7,
+      "text": "'r'",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 26,
+    "fields": {
+      "question": 7,
+      "text": "'w'",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 27,
+    "fields": {
+      "question": 7,
+      "text": "'x'",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 28,
+    "fields": {
+      "question": 7,
+      "text": "'a'",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 29,
+    "fields": {
+      "question": 7,
+      "text": "'b'",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 30,
+    "fields": {
+      "question": 8,
+      "text": "readlines()",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 31,
+    "fields": {
+      "question": 8,
+      "text": "getlines()",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 32,
+    "fields": {
+      "question": 8,
+      "text": "checklines()",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 33,
+    "fields": {
+      "question": 8,
+      "text": "savelines()",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 34,
+    "fields": {
+      "question": 9,
+      "text": "Нет. Контекстный менеджер сам закроет файл.",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 35,
+    "fields": {
+      "question": 9,
+      "text": "Да. Чтобы файл не потреблял ресурсы компьютера и данные не были утеряны.",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 36,
+    "fields": {
+      "question": 9,
+      "text": "По желанию. Если закрыть забыл, контекстный менеджер сам закроет файл.",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 37,
+    "fields": {
+      "question": 10,
+      "text": "list",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 38,
+    "fields": {
+      "question": 10,
+      "text": "tuple",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 39,
+    "fields": {
+      "question": 10,
+      "text": "dict",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 40,
+    "fields": {
+      "question": 10,
+      "text": "set",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 41,
+    "fields": {
+      "question": 11,
+      "text": "list",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 42,
+    "fields": {
+      "question": 11,
+      "text": "tuple",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 43,
+    "fields": {
+      "question": 11,
+      "text": "dict",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 44,
+    "fields": {
+      "question": 11,
+      "text": "set",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 45,
+    "fields": {
+      "question": 12,
+      "text": "set",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 46,
+    "fields": {
+      "question": 12,
+      "text": "list",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 47,
+    "fields": {
+      "question": 12,
+      "text": "tuple",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 48,
+    "fields": {
+      "question": 12,
+      "text": "dict",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 49,
+    "fields": {
+      "question": 13,
+      "text": "dict",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 50,
+    "fields": {
+      "question": 13,
+      "text": "list",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 51,
+    "fields": {
+      "question": 13,
+      "text": "tuple",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 52,
+    "fields": {
+      "question": 13,
+      "text": "set",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 53,
+    "fields": {
+      "question": 14,
+      "text": "Значение перезапишется",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 54,
+    "fields": {
+      "question": 14,
+      "text": "Будет ошибка",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 55,
+    "fields": {
+      "question": 14,
+      "text": "Новый ключ будет добавлен с суффиксом",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 56,
+    "fields": {
+      "question": 14,
+      "text": "Ничего не произойдёт",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 57,
+    "fields": {
+      "question": 15,
+      "text": "tuple",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 58,
+    "fields": {
+      "question": 15,
+      "text": "list",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 59,
+    "fields": {
+      "question": 15,
+      "text": "dict",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 60,
+    "fields": {
+      "question": 15,
+      "text": "set",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 61,
+    "fields": {
+      "question": 16,
+      "text": "list(set([1, 2, 2, 3, 3, 4]))",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 62,
+    "fields": {
+      "question": 16,
+      "text": "tuple([1, 2, 2, 3, 3, 4])",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 63,
+    "fields": {
+      "question": 16,
+      "text": "dict([1, 2, 2, 3, 3, 4])",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 64,
+    "fields": {
+      "question": 16,
+      "text": "Использовать цикл for",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 65,
+    "fields": {
+      "question": 17,
+      "text": "str",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 66,
+    "fields": {
+      "question": 17,
+      "text": "int",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 67,
+    "fields": {
+      "question": 17,
+      "text": "tuple",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 68,
+    "fields": {
+      "question": 17,
+      "text": "list",
+      "is_correct": true
+    }
+  }
+]

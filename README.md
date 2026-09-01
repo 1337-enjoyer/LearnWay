@@ -16,6 +16,10 @@
     python manage.py makemigrations
     python manage.py migrate
 
+Загрузить тестовые данные для отображения:
+
+    python manage.py loaddata learning_data
+
 Создать суперпользователя:
 
     python manage.py createsuperuser
