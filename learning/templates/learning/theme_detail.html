@@ -7,7 +7,11 @@
 {% block breadcrumb %}
     <a href="/">Главная</a>
     <span class="sep">/</span>
-    <a href="{{ theme.get_absolute_url }}">{{ theme.name }}</a>
+    <a href="{% url 'learning:theme_detail' theme.slug %}">{{ theme.name }}</a>
+    {% if current_subtheme %}
+        <span class="sep">/</span>
+        {{ current_subtheme.name }}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +21,7 @@
             <div class="sidebar-title">📂 Подтемы</div>
             <div class="sidebar-nav">
                 {% for subtheme in theme.subthemes.all %}
-                    <a href="{{ subtheme.get_absolute_url }}" 
+                    <a href="{% url 'learning:theme_detail_with_subtheme' theme.slug subtheme.slug %}" 
                        class="{% if subtheme.slug == current_subtheme.slug %}active{% endif %}">
                         {{ subtheme.name }}
                     </a>

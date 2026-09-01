@@ -29,21 +29,28 @@ class ThemeDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        first_subtheme = self.object.subthemes.order_by('order').first()
-        context['current_subtheme'] = first_subtheme
-        context['subtheme'] = first_subtheme
+        subtheme_slug = self.kwargs.get('subtheme_slug')
+        if subtheme_slug:
+            current_subtheme = get_object_or_404(
+                SubTheme,
+                theme=self.object,
+                slug=subtheme_slug
+            )
+        else:
+            current_subtheme = self.object.subthemes.order_by('order').first()
+
+        context['current_subtheme'] = current_subtheme
         return context
 
 
 class SubThemeDetailView(DetailView):
     model = SubTheme
-    template_name = 'learning/subtheme_detail.html'
-    context_object_name = 'subtheme'
-    slug_url_kwarg = 'subtheme_slug'
 
-    def get_object(self):
-        theme = get_object_or_404(Theme, slug=self.kwargs['theme_slug'])
-        return get_object_or_404(SubTheme, theme=theme, slug=self.kwargs['subtheme_slug'])
+    def get(self, request, *args, **kwargs):
+        subtheme = self.get_object()
+        return redirect('learning:theme_detail_with_subtheme',
+                        slug=subtheme.theme.slug,
+                        subtheme_slug=subtheme.slug)
 
 
 class SubThemeTestView(FormView):
