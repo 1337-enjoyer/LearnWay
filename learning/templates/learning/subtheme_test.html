@@ -8,7 +8,7 @@
     <span class="sep">/</span>
     <a href="{{ subtheme.theme.get_absolute_url }}">{{ subtheme.theme.name }}</a>
     <span class="sep">/</span>
-    <a href="{{ subtheme.get_absolute_url }}">{{ subtheme.name }}</a>
+    <a href="{% url 'learning:theme_detail_with_subtheme' subtheme.theme.slug subtheme.slug %}">{{ subtheme.name }}</a>
     <span class="sep">/</span>
     Тест
 {% endblock %}
@@ -25,7 +25,7 @@
             <div class="question-block">
                 <p class="question-text">{{ forloop.counter }}. {{ question.text }}</p>
                 <div>
-                    {% for answer in question.shuffled_answers %}  <!-- ← ТУТ ИЗМЕНИЛ! -->
+                    {% for answer in question.shuffled_answers %}
                         <label class="answer-option">
                             <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}">
                             <span>{{ answer.text }}</span>
