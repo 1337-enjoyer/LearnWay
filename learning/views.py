@@ -177,12 +177,10 @@ class FullTestResultView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         theme = get_object_or_404(Theme, slug=self.kwargs['slug'])
-
         result = self.request.session.get('test_result', {})
-
         context['theme'] = theme
         context['correct_answers'] = result.get('correct', 0)
         context['total_questions'] = result.get('total', 0)
         context['score_percent'] = result.get('percent', 0)
-
+        context['details'] = result.get('details', [])
         return context

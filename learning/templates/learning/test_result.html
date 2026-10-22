@@ -8,7 +8,7 @@
     <span class="sep">/</span>
     <a href="{{ subtheme.theme.get_absolute_url }}">{{ subtheme.theme.name }}</a>
     <span class="sep">/</span>
-    <a href="{{ subtheme.get_absolute_url }}">{{ subtheme.name }}</a>
+    <a href="{% url 'learning:theme_detail_with_subtheme' subtheme.theme.slug subtheme.slug %}">{{ subtheme.name }}</a>
     <span class="sep">/</span>
     Результат
 {% endblock %}
@@ -40,36 +40,58 @@
             <div style="margin-top: 16px; font-size: 48px;">📖</div>
             <p style="color: #f85149; font-weight: 500;">Стоит повторить материал перед следующей попыткой.</p>
         {% endif %}
+    </div>
 
-        <!-- Детали по каждому вопросу -->
-        {% if details %}
-            <div style="margin-top: 40px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
-                <h3 style="color: #f0f6fc; margin-bottom: 16px;">📋 Детали:</h3>
-                {% for detail in details %}
-                    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 12px; margin-bottom: 4px; border-radius: 6px; background: {% if detail.is_correct %}#0d1117{% else %}#1a0d0d{% endif %}; border-left: 3px solid {% if detail.is_correct %}#3fb950{% else %}#f85149{% endif %};">
-                        <span style="font-size: 18px;">
-                            {% if detail.is_correct %}✅{% else %}❌{% endif %}
-                        </span>
-                        <span style="font-size: 14px; color: #c9d1d9;">
-                            Вопрос #{{ forloop.counter }}
-                        </span>
-                    </div>
-                {% endfor %}
+    <!-- ===== РАЗБОР ОТВЕТОВ ===== -->
+    {% if details %}
+    <div class="test-review">
+        <h2>📋 Разбор ответов</h2>
+
+        {% for detail in details %}
+        <div class="review-item {% if detail.is_correct %}review-correct{% else %}review-wrong{% endif %}">
+            <div class="review-header">
+                <span class="review-status">
+                    {% if detail.is_correct %}✅{% else %}❌{% endif %}
+                </span>
+                <span class="review-number">Вопрос {{ forloop.counter }}</span>
             </div>
-        {% endif %}
 
-        <div style="margin-top: 30px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-            <a href="{{ subtheme.get_absolute_url }}" class="btn btn-primary">
-                📖 К статье
-            </a>
-            <a href="{% url 'learning:subtheme_test' subtheme.theme.slug subtheme.slug %}" 
-               class="btn btn-outline">
-                🔄 Пройти заново
-            </a>
-            <a href="{% url 'learning:theme_detail' subtheme.theme.slug %}" 
-               class="btn btn-outline">
-                📚 К теме
-            </a>
+            <div class="review-question">{{ detail.question_text }}</div>
+
+            {% if detail.is_correct %}
+                <div class="review-answer review-answer-correct">
+                    Твой ответ: {{ detail.user_answer_text }}
+                </div>
+            {% else %}
+                <div class="review-answer review-answer-wrong">
+                    Твой ответ: {% if detail.user_answer_text %}{{ detail.user_answer_text }}{% else %}<em>нет ответа</em>{% endif %}
+                </div>
+                <div class="review-answer review-answer-correct">
+                    Правильный ответ: {{ detail.correct_answer_text }}
+                </div>
+            {% endif %}
+
+            {% if detail.question_explanation %}
+                <div class="review-explanation">
+                    💡 {{ detail.question_explanation }}
+                </div>
+            {% endif %}
         </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div style="margin-top: 30px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="{% url 'learning:theme_detail_with_subtheme' subtheme.theme.slug subtheme.slug %}" class="btn btn-primary">
+            📖 К статье
+        </a>
+        <a href="{% url 'learning:subtheme_test' subtheme.theme.slug subtheme.slug %}" 
+           class="btn btn-outline">
+            🔄 Пройти заново
+        </a>
+        <a href="{% url 'learning:theme_detail' subtheme.theme.slug %}" 
+           class="btn btn-outline">
+            📚 К теме
+        </a>
     </div>
 {% endblock %}

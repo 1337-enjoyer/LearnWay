@@ -984,3 +984,107 @@ body {
         padding: 4px 10px;
     }
 }
+
+/* ============================================
+   РАЗБОР ОТВЕТОВ НА СТРАНИЦЕ РЕЗУЛЬТАТА
+   ============================================ */
+.test-review {
+    margin-top: 40px;
+}
+
+.test-review h2 {
+    color: #f0f6fc;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.review-item {
+    background: #0d1117;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-left: 4px solid #30363d;
+}
+
+.review-item.review-correct {
+    border-left-color: #3fb950;
+}
+
+.review-item.review-wrong {
+    border-left-color: #f85149;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.review-status {
+    font-size: 20px;
+}
+
+.review-number {
+    font-size: 13px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.review-question {
+    font-weight: 600;
+    font-size: 16px;
+    color: #f0f6fc;
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.review-answer {
+    padding: 8px 14px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #c9d1d9;
+}
+
+.review-answer-wrong {
+    background: rgba(248, 81, 73, 0.1);
+    border: 1px solid rgba(248, 81, 73, 0.3);
+}
+
+.review-answer-correct {
+    background: rgba(63, 185, 80, 0.1);
+    border: 1px solid rgba(63, 185, 80, 0.3);
+}
+
+.review-explanation {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(88, 166, 255, 0.08);
+    border-left: 3px solid #58a6ff;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    color: #8b949e;
+    line-height: 1.5;
+}
+
+/* Адаптив для разбора */
+@media (max-width: 768px) {
+    .review-item {
+        padding: 14px;
+    }
+
+    .review-question {
+        font-size: 15px;
+    }
+
+    .review-answer {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    .review-explanation {
+        font-size: 13px;
+    }
+}

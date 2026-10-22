@@ -21,13 +21,19 @@
     <div class="score">
       <span class="
                 {% if score_percent == 100 %}
+          
           score-perfect
 
+
         {% elif score_percent >= 70 %}
+          
           score-good
 
+
         {% else %}
+          
           score-bad
+
         {% endif %}
             ">
         {{ score_percent }}%
@@ -52,4 +58,49 @@
       <a href="/" class="btn btn-outline">🏠 На главную</a>
     </div>
   </div>
+
+  {# ===== РАЗБОР ОТВЕТОВ ===== #}
+  {% if details %}
+    <div class="test-review">
+      <h2>📋 Разбор ответов</h2>
+
+      {% for detail in details %}
+        <div class="review-item {% if detail.is_correct %}
+            review-correct
+          {% else %}
+            review-wrong
+          {% endif %}">
+          <div class="review-header">
+            <span class="review-status">
+              {% if detail.is_correct %}
+                ✅
+              {% else %}
+                ❌
+              {% endif %}
+            </span>
+            <span class="review-number">Вопрос {{ forloop.counter }}</span>
+          </div>
+
+          <div class="review-question">{{ detail.question_text }}</div>
+
+          {% if detail.is_correct %}
+            <div class="review-answer review-answer-correct">Твой ответ: {{ detail.user_answer_text }}</div>
+          {% else %}
+            <div class="review-answer review-answer-wrong">
+              Твой ответ:{% if detail.user_answer_text %}
+                {{ detail.user_answer_text }}
+              {% else %}
+                <em>нет ответа</em>
+              {% endif %}
+            </div>
+            <div class="review-answer review-answer-correct">Правильный ответ: {{ detail.correct_answer_text }}</div>
+          {% endif %}
+
+          {% if detail.question_explanation %}
+            <div class="review-explanation">💡 {{ detail.question_explanation }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 {% endblock %}
