@@ -40,6 +40,19 @@
   },
   {
     "model": "learning.theme",
+    "pk": 6,
+    "fields": {
+      "name": "Паттерны решения задач",
+      "slug": "patterny-resheniya-zadach",
+      "description": "",
+      "icon": "",
+      "order": 0,
+      "created_at": "2026-10-27T15:22:40.744Z",
+      "updated_at": "2026-10-27T15:22:40.744Z"
+    }
+  },
+  {
+    "model": "learning.theme",
     "pk": 1,
     "fields": {
       "name": "Git",
@@ -146,6 +159,20 @@
       "order": 0,
       "created_at": "2026-09-07T18:59:49.137Z",
       "updated_at": "2026-09-07T19:10:32.603Z"
+    }
+  },
+  {
+    "model": "learning.subtheme",
+    "pk": 9,
+    "fields": {
+      "theme": 6,
+      "name": "С двух сторон",
+      "slug": "s-dvuh-storon",
+      "description": "",
+      "content": "# Паттерн «Два указателя» (Two Pointers)\r\n\r\n## Суть паттерна\r\n\r\nПаттерн «два указателя» используется для эффективного решения задач на массивах и строках. Идея в том, чтобы двигать два указателя навстречу друг другу (с двух сторон), пока они не встретятся или не будет найдено решение.\r\n\r\n## Когда применять\r\n\r\nИспользуй паттерн «с двух сторон», если:\r\n\r\n- Дан **один отсортированный массив**.\r\n- Задача на **палиндром** (проверка строки/массива на симметричность).\r\n- Нужно найти **пару элементов**, дающих в сумме определённое значение.\r\n\r\n## Алгоритм (общий шаблон)\r\n\r\n1. Инициализировать указатели: `l` — на первый элемент, `r` — на последний.\r\n2. Запустить цикл `while l < r`.\r\n3. Внутри цикла — логика движения указателя:\r\n   - если условие выполнено — вернуть результат;\r\n   - если текущее значение больше нужного — сдвинуть `r -= 1`;\r\n   - если меньше — сдвинуть `l += 1`.\r\n\r\n## Сложность\r\n\r\n- **Время:** O(n) — каждый элемент просматривается не более одного раза.\r\n- **Память:** O(1) — дополнительные структуры не используются.\r\n\r\n## Важное ограничение\r\n\r\nРешение для поиска пары с заданной суммой **работает только для отсортированного массива**. Для неотсортированного массива этот подход неприменим (нужна сортировка или хеш-таблица).\r\n\r\n---\r\n\r\n## Пример 1. Two Sum в отсортированном массиве\r\n\r\n**Задача:** дан отсортированный список и число `target`. Нужно вернуть позиции двух значений, дающих в сумме `target`.\r\n\r\n**Входные данные:**\r\n- Массив: `[-2, 1, 6, 9, 12, 21]`\r\n- `target = 18`\r\n\r\n**Идея:** ставим указатели на начало и конец массива, суммируем элементы и сравниваем с `target`. Если `target` больше суммы — двигаем левый указатель. Если меньше — правый.\r\n\r\n```python\r\nmy_list = [-2, 1, 6, 9, 12, 21]\r\ntarget = 18\r\n\r\n\r\ndef two_sum(nums, target):\r\n    l = 0\r\n    r = len(nums) - 1\r\n\r\n    while l < r:\r\n        curr_sum = nums[l] + nums[r]\r\n\r\n        if curr_sum == target:\r\n            return [l, r]\r\n        elif curr_sum > target:\r\n            r -= 1\r\n        else:\r\n            l += 1\r\n\r\n    return [-1, -1]\r\n\r\n\r\nprint(two_sum(my_list, target))\r\n```\r\n\r\n---\r\n\r\n## Пример 2. Проверка строки на палиндром\r\n\r\n**Задача:** дано слово `s`. Нужно проверить, является ли оно палиндромом.\r\n\r\n**Идея:** ставим указатели на первый и последний символ. Сравниваем символы и двигаем указатели навстречу друг другу. Если нашли несовпадение — не палиндром.\r\n\r\n```python\r\ndef solution(s):\r\n    l = 0\r\n    r = len(s) - 1\r\n\r\n    while l < r:\r\n        if s[l] != s[r]:\r\n            return False\r\n        l += 1\r\n        r -= 1\r\n\r\n    return True\r\n\r\n\r\nprint(solution('шалаш'))    # True\r\nprint(solution('шарада'))   # False\r\n```\r\n\r\n---",
+      "order": 0,
+      "created_at": "2026-10-27T15:22:40.747Z",
+      "updated_at": "2026-10-27T15:31:55.478Z"
     }
   },
   {
@@ -738,6 +765,54 @@
       "order": 0,
       "created_at": "2026-10-13T15:24:53.392Z",
       "updated_at": "2026-10-13T15:24:53.392Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 48,
+    "fields": {
+      "subtheme": 9,
+      "text": "В чём основная идея паттерна «два указателя»?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-27T15:31:55.481Z",
+      "updated_at": "2026-10-27T15:31:55.481Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 49,
+    "fields": {
+      "subtheme": 9,
+      "text": "Для какого массива работает классическое решение задачи Two Sum с двумя указателями (без хеш-таблицы)?",
+      "explanation": "Для неотсортированного массива этот подход неприменим — нужна сортировка или хеш-таблица.",
+      "order": 0,
+      "created_at": "2026-10-27T15:31:55.482Z",
+      "updated_at": "2026-10-27T15:31:55.482Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 50,
+    "fields": {
+      "subtheme": 9,
+      "text": "Какая временная сложность у паттерна «два указателя»?",
+      "explanation": "Каждый элемент просматривается не более одного раза, поэтому время — O(n), а память — O(1).",
+      "order": 0,
+      "created_at": "2026-10-27T15:31:55.483Z",
+      "updated_at": "2026-10-27T15:31:55.483Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 51,
+    "fields": {
+      "subtheme": 9,
+      "text": "Какое условие цикла используется в паттерне «два указателя»?",
+      "explanation": "l < r — стандартное условие, чтобы указатели не «пересеклись» и не обработали один и тот же элемент дважды.",
+      "order": 0,
+      "created_at": "2026-10-27T15:31:55.483Z",
+      "updated_at": "2026-10-27T15:31:55.483Z"
     }
   },
   {
@@ -2429,6 +2504,150 @@
     "fields": {
       "question": 47,
       "text": "Группирует строки",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 189,
+    "fields": {
+      "question": 48,
+      "text": "Двигать два указателя навстречу друг другу, пока они не встретятся или не будет найдено решение",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 190,
+    "fields": {
+      "question": 48,
+      "text": "Перебирать все возможные пары элементов вложенным циклом",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 191,
+    "fields": {
+      "question": 48,
+      "text": "Хранить все элементы в хеш-таблице",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 192,
+    "fields": {
+      "question": 48,
+      "text": "Сортировать массив на каждом шаге",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 193,
+    "fields": {
+      "question": 49,
+      "text": "Только для отсортированного массива",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 194,
+    "fields": {
+      "question": 49,
+      "text": "Для любого массива",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 195,
+    "fields": {
+      "question": 49,
+      "text": "Только для массива с уникальными элементами",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 196,
+    "fields": {
+      "question": 49,
+      "text": "Только для массива строк",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 197,
+    "fields": {
+      "question": 50,
+      "text": "O(n)",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 198,
+    "fields": {
+      "question": 50,
+      "text": "O(n²)",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 199,
+    "fields": {
+      "question": 50,
+      "text": "O(n log n)",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 200,
+    "fields": {
+      "question": 50,
+      "text": "O(1)",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 201,
+    "fields": {
+      "question": 51,
+      "text": "while l < r",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 202,
+    "fields": {
+      "question": 51,
+      "text": "while l <= r",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 203,
+    "fields": {
+      "question": 51,
+      "text": "while l != r",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 204,
+    "fields": {
+      "question": 51,
+      "text": "while True",
       "is_correct": false
     }
   }

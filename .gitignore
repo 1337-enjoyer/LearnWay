@@ -218,3 +218,4 @@ __marimo__/
 .streamlit/secrets.toml
 
 export_dump.py
+superuser.txt
