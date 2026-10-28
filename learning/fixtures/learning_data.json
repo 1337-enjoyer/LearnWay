@@ -149,6 +149,20 @@
   },
   {
     "model": "learning.subtheme",
+    "pk": 10,
+    "fields": {
+      "theme": 6,
+      "name": "Плавающие окна с фиксированной длинной",
+      "slug": "plavayushie-okna-s-fiksirovannoj-dlinnoj",
+      "description": "",
+      "content": "# Паттерн «Скользящее окно»: фиксированная длина\r\n\r\n## Задача\r\n\r\nДан массив и число `k`. Нужно вернуть максимальную сумму `k` подряд идущих элементов.\r\n\r\n**Входные данные:**\r\n- Массив: `[3, 2, 0, 9, 1, 2, 8, 5, 2]`\r\n- `k = 5`\r\n\r\n**Ожидаемый результат:** `25`\r\n\r\n## Идея решения\r\n\r\n1. Сначала суммируем первые `k` элементов и запоминаем результат.\r\n2. Далее всё просто: вычитаем элемент слева, прибавляем элемент справа и сравниваем результат.\r\n\r\nПаттерн фиксированной длины содержит **три основных шага**:\r\n1. **Накопление** для первых `k` элементов.\r\n2. **Цикл** по оставшимся элементам.\r\n3. **Переход к следующему окну** (вычесть левый, прибавить правый).\r\n\r\n**Сложность:**\r\n- Время: **O(n)**\r\n- Память: **O(1)**\r\n\r\n## Решение\r\n\r\n```python\r\nmy_list = [3, 2, 0, 9, 1, 2, 8, 5, 2]\r\nk = 5\r\n\r\n\r\ndef k_elements_max_sum(my_list, k):\r\n    # 1) Накопление для первых k элементов\r\n    window_sum = 0\r\n    for i in range(k):\r\n        window_sum += my_list[i]\r\n    max_sum = window_sum\r\n\r\n    # 2) Цикл и 3) переход к следующему окну\r\n    for r in range(k, len(my_list)):\r\n        l = r - k\r\n        window_sum = window_sum + my_list[r] - my_list[l]\r\n        max_sum = max(max_sum, window_sum)\r\n\r\n    return max_sum\r\n\r\n\r\nprint(k_elements_max_sum(my_list=my_list, k=k))\r\n```\r\n## Задача\r\n\r\nДан массив чисел `nums` и число `k`. Нужно найти максимальное произведение `k` подряд идущих элементов.\r\n\r\n**Входные данные:**\r\n- Массив: `[3, 0, 5, 9, 4, 1]`\r\n- `k = 3`\r\n\r\n## Green flags плавающего окна\r\n\r\n1. Дана переменная, обозначающая размер окна.\r\n2. Требуется работать с подряд идущими элементами.\r\n\r\n## Особенность\r\n\r\nВ массиве есть **нули**. При делении на ноль нужно пересчитывать окно заново, потому что произведение с нулём обнуляется, и «вычесть» ноль делением нельзя.\r\n\r\n## Решение\r\n\r\n```python\r\nnums = [3, 0, 5, 9, 4, 1]\r\nk = 3\r\n\r\n\r\ndef max_mult(nums, k):\r\n    # 1) Накопление для первых k элементов\r\n    current_mult = 1\r\n    for i in range(k):\r\n        current_mult *= nums[i]\r\n    max_mult = current_mult\r\n\r\n    # 2) Цикл и 3) переход к следующему окну\r\n    for r in range(k, len(nums)):\r\n        l = nums[r - k]\r\n\r\n        if l != 0:\r\n            current_mult //= l\r\n        else:\r\n            # Если левый элемент — ноль, пересчитываем окно заново\r\n            current_mult = 1\r\n            for i in range(r - k + 1, r):\r\n                current_mult *= nums[i]\r\n\r\n        current_mult *= nums[r]\r\n        max_mult = max(max_mult, current_mult)\r\n\r\n    return max_mult\r\n\r\n\r\nprint(max_mult(nums, k))\r\n```",
+      "order": 0,
+      "created_at": "2026-10-28T13:24:02.332Z",
+      "updated_at": "2026-10-28T13:31:33.546Z"
+    }
+  },
+  {
+    "model": "learning.subtheme",
     "pk": 5,
     "fields": {
       "theme": 3,
@@ -813,6 +827,102 @@
       "order": 0,
       "created_at": "2026-10-27T15:31:55.483Z",
       "updated_at": "2026-10-27T15:31:55.483Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 52,
+    "fields": {
+      "subtheme": 10,
+      "text": "В чём основная идея паттерна «скользящее окно»?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-28T13:31:33.549Z",
+      "updated_at": "2026-10-28T13:31:33.549Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 53,
+    "fields": {
+      "subtheme": 10,
+      "text": "Какая временная сложность у паттерна «скользящее окно» в общем случае?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-28T13:31:33.550Z",
+      "updated_at": "2026-10-28T13:31:33.550Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 54,
+    "fields": {
+      "subtheme": 10,
+      "text": "Какие три основных шага содержит паттерн фиксированного окна?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-28T13:31:33.550Z",
+      "updated_at": "2026-10-28T13:31:33.550Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 55,
+    "fields": {
+      "subtheme": 10,
+      "text": "Как перейти к следующему окну при фиксированной длине k, если текущая сумма уже известна?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-28T13:31:33.551Z",
+      "updated_at": "2026-10-28T13:31:33.551Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 56,
+    "fields": {
+      "subtheme": 10,
+      "text": "Какие green flags указывают на применение плавающего окна?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-28T13:31:33.551Z",
+      "updated_at": "2026-10-28T13:31:33.551Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 57,
+    "fields": {
+      "subtheme": 10,
+      "text": "Что делается в решении задачи на произведение, если левый элемент окна равен нулю?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-28T13:31:33.552Z",
+      "updated_at": "2026-10-28T13:31:33.552Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 58,
+    "fields": {
+      "subtheme": 10,
+      "text": "Чем плавающее окно отличается от фиксированного?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-28T13:31:33.552Z",
+      "updated_at": "2026-10-28T13:31:33.552Z"
+    }
+  },
+  {
+    "model": "learning.question",
+    "pk": 59,
+    "fields": {
+      "subtheme": 10,
+      "text": "Какой паттерн использовать, если дана переменная k (размер окна) и нужно найти максимальную сумму подряд идущих элементов?",
+      "explanation": "",
+      "order": 0,
+      "created_at": "2026-10-28T13:31:33.553Z",
+      "updated_at": "2026-10-28T13:31:33.553Z"
     }
   },
   {
@@ -2648,6 +2758,294 @@
     "fields": {
       "question": 51,
       "text": "while True",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 205,
+    "fields": {
+      "question": 52,
+      "text": "«Сдвигать» окно: убирать левый элемент и добавлять правый, не пересчитывая всё заново",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 206,
+    "fields": {
+      "question": 52,
+      "text": "Пересчитывать результат для каждого окна с нуля",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 207,
+    "fields": {
+      "question": 52,
+      "text": "Использовать рекурсию для обхода массива",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 208,
+    "fields": {
+      "question": 52,
+      "text": "Сортировать массив перед обработкой",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 209,
+    "fields": {
+      "question": 53,
+      "text": "O(n)",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 210,
+    "fields": {
+      "question": 53,
+      "text": "O(n²)",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 211,
+    "fields": {
+      "question": 53,
+      "text": "O(n log n)",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 212,
+    "fields": {
+      "question": 53,
+      "text": "O(k)",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 213,
+    "fields": {
+      "question": 54,
+      "text": "Накопление для первых k элементов → цикл → переход к следующему окну",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 214,
+    "fields": {
+      "question": 54,
+      "text": "Сортировка → фильтрация → вывод",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 215,
+    "fields": {
+      "question": 54,
+      "text": "Рекурсия → мемоизация → возврат",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 216,
+    "fields": {
+      "question": 54,
+      "text": "Разбиение → слияние → сортировка",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 217,
+    "fields": {
+      "question": 55,
+      "text": "Вычесть левый элемент и прибавить новый правый",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 218,
+    "fields": {
+      "question": 55,
+      "text": "Пересчитать сумму всех элементов окна заново",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 219,
+    "fields": {
+      "question": 55,
+      "text": "Умножить сумму на 2",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 220,
+    "fields": {
+      "question": 55,
+      "text": "Поделить сумму на k",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 221,
+    "fields": {
+      "question": 56,
+      "text": "Дан отсортированный массив и нужно найти пару",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 222,
+    "fields": {
+      "question": 56,
+      "text": "Дана переменная, обозначающая размер окна, и нужно работать с подряд идущими элементами",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 223,
+    "fields": {
+      "question": 56,
+      "text": "Нужно проверить строку на палиндром",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 224,
+    "fields": {
+      "question": 56,
+      "text": "Нужно найти максимальный элемент массива",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 225,
+    "fields": {
+      "question": 57,
+      "text": "Окно пересчитывается заново с r - k + 1 до r - 1",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 226,
+    "fields": {
+      "question": 57,
+      "text": "Возвращается 0",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 227,
+    "fields": {
+      "question": 57,
+      "text": "Левый элемент заменяется на 1",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 228,
+    "fields": {
+      "question": 57,
+      "text": "Цикл прерывается",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 229,
+    "fields": {
+      "question": 58,
+      "text": "В плавающем окне при переходе к следующему окну не всегда можно просто вычесть левый элемент — нужна обработка особых случаев (например, нулей)",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 230,
+    "fields": {
+      "question": 58,
+      "text": "Плавающее окно всегда больше по размеру",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 231,
+    "fields": {
+      "question": 58,
+      "text": "Фиксированное окно работает только с отсортированными массивами",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 232,
+    "fields": {
+      "question": 58,
+      "text": "Плавающее окно использует два указателя навстречу друг другу",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 233,
+    "fields": {
+      "question": 59,
+      "text": "Два указателя",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 234,
+    "fields": {
+      "question": 59,
+      "text": "Скользящее окно",
+      "is_correct": true
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 235,
+    "fields": {
+      "question": 59,
+      "text": "Бинарный поиск",
+      "is_correct": false
+    }
+  },
+  {
+    "model": "learning.answer",
+    "pk": 236,
+    "fields": {
+      "question": 59,
+      "text": "Рекурсия",
       "is_correct": false
     }
   }
